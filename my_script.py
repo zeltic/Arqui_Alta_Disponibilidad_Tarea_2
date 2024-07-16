@@ -20,6 +20,7 @@ cursor = conn.cursor()
 # URL de la página de sismología
 url = "https://www.sismologia.cl/index.html"
 response = requests.get(url)
+response.encoding = 'utf-8'
 data = response.text
 soup = BeautifulSoup(data, 'html.parser')
 
