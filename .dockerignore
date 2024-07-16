@@ -3,6 +3,3 @@ __pycache__/
 db/
 
 .env.example
-# *.env
-# *.env.*
-# env.*
