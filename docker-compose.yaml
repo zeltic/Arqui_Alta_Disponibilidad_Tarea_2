@@ -1,23 +1,4 @@
 services:
-  postgresDB:
-    image: postgres:16
-    env_file: .env
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d scrap -U scrap"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
-    ports:
-      - ${POSTGRES_PORT}:${POSTGRES_PORT}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./db:/docker-entrypoint-initdb.d/
-
   scrap:
     build: .
     env_file:
@@ -28,9 +9,6 @@ services:
         POSTGRES_DB: ${POSTGRES_DB}
         POSTGRES_HOST: ${POSTGRES_HOST}
         POSTGRES_PORT: ${POSTGRES_PORT}
-    depends_on:
-      postgresDB:
-        condition: service_healthy
 
   metabase-db:
     image: postgres:16
