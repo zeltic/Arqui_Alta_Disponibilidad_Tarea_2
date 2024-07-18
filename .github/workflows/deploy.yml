@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - benja
+      - ben
 
 jobs:
   deploy:
@@ -18,7 +18,13 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-    - name: Deploy scrapper to Dokku
+    - name: Push to Ubuntu Server
       run: |
-        git remote add dokku dokku@146.190.130.114:scrapper
-        git push dokku main
+        ssh -o StrictHostKeyChecking=no root@147.182.254.71 '
+        cd Arqui_Alta_Disponibilidad_Tarea_2 &&
+        git pull origin ben &&
+        docker-compose down &&
+        docker-compose up --build -d
+        '
+      env:
+        SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
