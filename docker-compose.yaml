@@ -19,7 +19,7 @@ services:
       POSTGRES_PASSWORD: ${MTBPOSTGRES_PASSWORD}
       POSTGRES_DB: ${MTBPOSTGRES_DB}
     ports:
-      - "${MTBPOSTGRES_PORT}:${POSTGRES_PORT}"  # Cambiado para evitar conflicto de puerto
+      - "${MTBPOSTGRES_PORT}:${DB_PORT}"  # Cambiado para evitar conflicto de puerto
     volumes:
       - metabase-data:/var/lib/postgresql/data
       - ./metabaseDBMig:/docker-entrypoint-initdb.d
@@ -32,7 +32,7 @@ services:
     environment:
       MB_DB_TYPE: postgres
       MB_DB_DBNAME: ${MTBPOSTGRES_DB}
-      MB_DB_PORT: ${POSTGRES_PORT}
+      MB_DB_PORT: ${DB_PORT}
       MB_DB_USER: ${MTBPOSTGRES_USER}
       MB_DB_PASS: ${MTBPOSTGRES_PASSWORD}
       MB_DB_HOST: metabase-db
@@ -40,5 +40,4 @@ services:
       - metabase-db
 
 volumes:
-  postgres_data:
   metabase-data:
