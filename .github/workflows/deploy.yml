@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - ben
+      - main
 
 jobs:
   deploy:
@@ -22,7 +22,7 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no root@147.182.254.71 '
         cd Arqui_Alta_Disponibilidad_Tarea_2 &&
-        git pull origin ben &&
+        git pull origin main &&
         docker compose down &&
         docker compose up --build -d
         '
